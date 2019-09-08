@@ -122,7 +122,7 @@ class Spectra():
         ax.grid()
 
         ani = animation.ArtistAnimation(fig, lns, interval=int(dt*100),blit=True) 
-        ani.save('surface_elevation_simulation.mp4', fps=12)
+        ani.save('surface_elevation_simulation_too_fast.mp4', fps=12)
         
         return True
 
