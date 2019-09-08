@@ -9,7 +9,8 @@ g_accel = 9.81;
 PLT_NUM = 150;
 dw      = (omega_high - omega_low) / PLT_NUM;
 w_range = omega_low:dw:omega_high;
-h_range = 0:5000;
+h_max = 1000;
+h_range = 0:h_max;
 dt = 0.1;
 t_range = 0:dt:60;
 
@@ -31,11 +32,12 @@ end
 
 fig = figure;
 grid on
-axis([0 5000 -5 5])
+axis([0 h_max -5 5])
 set(gca,'nextplot','replacechildren');
 
 % Pre-allocating surface elevation per wave component
 z_j = zeros(1,length(w_range)); 
+z = zeros(1,length(h_range));
 
 % For each time instance, go through wave elevation for all x-values, and
 % calculate elevation per frequency component
@@ -49,7 +51,7 @@ for tC = 1:length(t_range)
         z(i) = sum(z_j);
     end
     plot(h_range,z);
-    text(2000,4,sprintf('time = %.2f s',t));
+    text(h_max/2.5,H_significant*1.2,sprintf('time = %.2f s',t));
     F(tC) = getframe(fig);
     % pause(0.05);
 end
