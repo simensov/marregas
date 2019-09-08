@@ -10,7 +10,7 @@ PLT_NUM = 150;
 dw      = (omega_high - omega_low) / PLT_NUM;
 w_range = omega_low:dw:omega_high;
 h_range = 0:5000;
-dt = 0.2;
+dt = 0.1;
 t_range = 0:dt:60;
 
 % Get amplitudes from ITTC spectra
@@ -56,7 +56,7 @@ end
     
 % movie(F,1,1);
 
-movie2gif(F,'sim_test.gif','DelayTime', 0);
+movie2gif(F,'elevation.gif','DelayTime', 0);
 
 %% 
 % Found at se.mathworks.com/matlabcentral/fileexchange/17463-movie-to-gif-converter
