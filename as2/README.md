@@ -8,6 +8,6 @@
 
 The surface elevation of the given ITTC spectra looks like this (up until the last second where something glitchy happens):
 
-![](figures/elevation.gif)
+![center](figures/elevation.gif)
 
 
