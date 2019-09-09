@@ -16,20 +16,18 @@ t_range = 0:h:t_max-1;
 % Wind components must be the sum of the mean and the random variations
 U_mean = U_mean_10 * 2.5 * sqrt(k) * log(z/z_0) * zeros(1,length(t_range));
 
-sim('mean_wind_fluctuations.slx'); % Outputs mean wind fluctuations, adding variable U_fl to the workspace
+% Solve ODE of mean wind fluctuations, adding variable U_fl to the workspace
+sim('mean_wind_fluctuations.slx'); 
 
-U_m_fl = U_mean + U_fl.Data';
-
-ax = gca;
-improveFigFit(ax);
+U_m_fl = U_mean + U_fl.Data'; % Mean wind with fluctuations
 
 plot(t_range,U_m_fl,'b');
 hold on
 plot(t_range,U_mean,'r');
 hold off
 xlabel('Time [s]','FontSize',14);
-ylabel(sprintf('Wind speed [m/s]',z),'FontSize',14);
-title('Mean wind fluctuations at 3 meters height','FontSize',14);
+ylabel(sprintf('Wind speed [m/s]',z),'FontSize',14); 
+title('Mean wind fluctuations at 3 meters height, \mu = 0.001','FontSize',14);
 legend('Mean wind fluctuation','Mean wind');
 
 % --------- % b) Gust
@@ -37,8 +35,8 @@ legend('Mean wind fluctuation','Mean wind');
 % The wind spectras has almost no energy above 1 Hz
 % Choosing the NORSOK spectra, a lower bound is chosen at 1E-4.
 
-df = 10^(-4);
-f_range = df:df:1;
+df = 10^(-3);
+f_range = 10^(-4):df:1;
 % f_range = logspace(-4,0);           % Frequencies distributed logaritmically
 phi = 2*pi*rand(1,length(f_range)); % Random phase angles
 
@@ -54,17 +52,26 @@ for t = 1:length(t_range)
     U_g(t) = sum(U_gi);
 end
 
+ax = gca;
+improveFigFit(ax);
 figure;
 plot(t_range,U_g);
+hold on
+plot(t_range,U_mean,'r');
+hold off
 xlabel('Time [s]','FontSize',14);
 ylabel(sprintf('Wind speed [m/s]',z),'FontSize',14);
 title('Wind gust','FontSize',14);
+
 
 % Total wind speeds
 U_tot = U_m_fl + U_g;
 
 figure;
 plot(t_range,U_tot);
+hold on
+plot(t_range,U_mean,'r');
+hold off
 xlabel('Time [s]','FontSize',14);
 ylabel(sprintf('Wind speed [m/s]',z),'FontSize',14);
 title('Total wind speed','FontSize',14);
