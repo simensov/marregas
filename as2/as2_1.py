@@ -152,18 +152,25 @@ def plotITTC(ax,spectra,lower_bound,upper_bound):
 # Assignment 1
 spectra = Spectra(H_significant, omega_peak, g_accel)
 fig, ax = plt.subplots()
+# use LaTeX fonts in the plot
+# plt.rc('text', usetex=True)
+plt.rc('font', family='serif')
 
 # a) - ITTC
 
+# set labels (LaTeX can be used)
+ax.set_title("ITTC spectra between wave frequencies {:.2f} and {:.3f}".format(omega_low,omega_high), fontsize=11,fontweight='bold')
+ax.set_xlabel("Wave frequency [rad/s]", fontsize=11,fontweight='bold')
+ax.set_ylabel("S [m^2/s]", fontsize=11,fontweight='bold')
+
 w_range, S_range = plotITTC(ax,spectra,omega_low,omega_high)
-ax.set_title("ITTC spectra between wave frequencies {:.2f} and {:.3f}".format(omega_low,omega_high))
-ax.set_xlabel("Wave frequency")
-ax.set_ylabel("S [m^2 / s]")
+fig.savefig("ITTC_spectra.pdf", bbox_inches='tight')
 
 # b) - RMS / std deviation of sea surface from plotted data
 # Using the relation m0 = integral_wlower^wupper(S(w) * dw) with trapezoidal integration
 
 m0 = spectra.ITTC_spectra_moment(omega_low,omega_high)
+print(m0)
 print("Std deviation from dataplots: ", math.sqrt(m0))
 
 # c) Using given H_s instead
