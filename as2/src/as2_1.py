@@ -14,9 +14,10 @@ import matplotlib.animation as animation
 # Constants given
 H_significant = 2.5
 T_peak        = 9.0
-omega_peak    = 2 * math.pi / T_peak
+omega_peak    = 2 * math.pi / T_peak # [Hz]
+omega_peak	  = 2 * math.pi * omega_peak # [rad/s]
 omega_low     = 0.2
-omega_high    = 3.0 * omega_peak
+omega_high    = 3 * omega_peak
 
 # Other constants
 g_accel = 9.81
@@ -152,18 +153,16 @@ def plotITTC(ax,spectra,lower_bound,upper_bound):
 # Assignment 1
 spectra = Spectra(H_significant, omega_peak, g_accel)
 fig, ax = plt.subplots()
-# use LaTeX fonts in the plot
-# plt.rc('text', usetex=True)
+
 plt.rc('font', family='serif')
 
 # a) - ITTC
-
-# set labels (LaTeX can be used)
-ax.set_title("ITTC spectra between wave frequencies {:.2f} and {:.3f}".format(omega_low,omega_high), fontsize=11,fontweight='bold')
+ax.text(0.42, 0.02, "Peak frequency at {:.2f}".format(omega_peak), horizontalalignment='center', verticalalignment='center', transform=ax.transAxes)
+ax.set_title("ITTC spectra between wave frequencies {:.2f} and {:.3f} [rad/s]".format(omega_low,omega_high), fontsize=11,fontweight='bold')
 ax.set_xlabel("Wave frequency [rad/s]", fontsize=11,fontweight='bold')
 ax.set_ylabel("S [m^2/s]", fontsize=11,fontweight='bold')
-
 w_range, S_range = plotITTC(ax,spectra,omega_low,omega_high)
+
 fig.savefig("ITTC_spectra.pdf", bbox_inches='tight')
 
 # b) - RMS / std deviation of sea surface from plotted data

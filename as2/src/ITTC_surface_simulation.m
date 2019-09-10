@@ -2,7 +2,8 @@
 
 H_significant = 2.5;
 T_peak        = 9.0;
-omega_peak    = 2.0 * pi / T_peak;
+omega_peak    = 2.0 * pi / T_peak; % in Hz
+omega_peak    = 2.0 * pi * omega_peak; % in rad/s
 omega_low     = 0.2;
 omega_high    = 3.0 * omega_peak;
 g_accel = 9.81;
@@ -32,7 +33,7 @@ end
 
 fig = figure;
 grid on
-axis([0 h_max -5 5])
+axis([0 h_max -3 3])
 set(gca,'nextplot','replacechildren');
 
 % Pre-allocating surface elevation per wave component
@@ -53,7 +54,7 @@ for tC = 1:length(t_range)
     plot(h_range,z);
     text(h_max/2.5,H_significant*1.2,sprintf('time = %.2f s',t));
     F(tC) = getframe(fig);
-    % pause(0.05);
+    pause(0.05);
 end
     
 % movie(F,1,1);
