@@ -76,14 +76,12 @@ for method=1:length(sP)*3
     end
     
     step(system_minreal,plotTime);
-    for i=1:length(sP)
+    parfor i=1:length(sP)
         d_P   = c2d(P,sP(i),'zoh');
         if strcmp(discmethod,'euler')
             d_G = tf([4, 4*(T-1)],[1, (2*T-1)],sP(i),'Variable','z');
         else
-            tic
             d_G = c2d(G,sP(i),discmethod);
-            toc
         end
         d_sys = feedback(d_P*d_G, 1);
         step(d_sys,plotTime);
